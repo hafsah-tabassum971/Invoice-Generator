@@ -16,7 +16,7 @@ const Wrapper = styled.footer`
   background: #0d1b2a;
   color: #fff;
   text-align: center;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 0rem;
   font-size: 0.9rem;
 
   @media (max-width: 480px) {

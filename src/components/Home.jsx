@@ -271,9 +271,12 @@ const Wrapper = styled.div`
   align-items: center;
   background: radial-gradient(circle at top left, #0d1b2a, #000);
   color: white;
-  padding: 2rem 1rem;
+  padding: 2rem;
     @media (max-width: 768px) {
     padding: 1rem;
+  }
+    @media (max-width: 480px) {
+    padding: 0.5rem; /* less space on small screens */
   }
 `;
 
@@ -302,6 +305,7 @@ const Content = styled.div`
 
   @media (max-width: 480px) {
     padding: 1rem;
+    /* margin-top: ${({ showForm }) => (showForm ? "1rem" : "0")}; */
   }
 `;
 
@@ -352,6 +356,9 @@ const Input = styled.input`
   border: none;
   outline: none;
   font-size: 1rem;
+      @media (max-width: 480px) {
+width: auto;
+  }
 `;
 
 const ItemRow = styled.div`

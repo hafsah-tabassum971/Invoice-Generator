@@ -64,11 +64,11 @@ const Wrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 5rem 1.5rem;
+  padding: 5rem 0rem;
   color: white;
 
   @media (max-width: 768px) {
-    padding: 4rem 0.5rem;
+    padding: 4rem 0rem;
   }
 
   @media (max-width: 480px) {

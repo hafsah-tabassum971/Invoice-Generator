@@ -61,6 +61,9 @@ const Nav = styled.nav`
   padding: 1rem 4rem;
   z-index: 1000;
   box-sizing: border-box;
+    @media (max-width: 768px) {
+    padding: 1rem 1.5rem; /* reduce side padding on mobile */
+  }
 `;
 
 const Logo = styled.h1`
@@ -137,6 +140,7 @@ const MobileIcon = styled.div`
 
   @media (max-width: 768px) {
     display: block;
+    
   }
 `;
 
