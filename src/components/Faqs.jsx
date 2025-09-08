@@ -64,15 +64,15 @@ const Wrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 5rem 2rem;
+  padding: 5rem 1.5rem;
   color: white;
 
   @media (max-width: 768px) {
-    padding: 4rem 1.5rem;
+    padding: 4rem 0.5rem;
   }
 
   @media (max-width: 480px) {
-    padding: 3rem 1rem;
+    padding: 3rem 0rem;
   }
 `;
 

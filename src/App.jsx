@@ -6,6 +6,7 @@ import Gallery from "./components/Gallery";
 import Features from "./components/Features";
 import Faqs from "./components/Faqs";
 import WhyBest from "./components/WhyBest";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <WhyBest />
       <Features />
       <Faqs />
+      <Footer/>
     </>
   );
 }

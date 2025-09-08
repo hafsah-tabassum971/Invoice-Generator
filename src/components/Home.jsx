@@ -271,7 +271,7 @@ const Wrapper = styled.div`
   align-items: center;
   background: radial-gradient(circle at top left, #0d1b2a, #000);
   color: white;
-  padding: 2rem;
+  padding: 2rem 1rem;
     @media (max-width: 768px) {
     padding: 1rem;
   }
