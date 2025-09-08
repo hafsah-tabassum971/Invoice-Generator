@@ -5,26 +5,27 @@ import { FiMenu, FiX } from "react-icons/fi";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Smooth scroll to section
   const handleScroll = (id) => {
     const section = document.getElementById(id);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false); // Close menu on mobile after clicking
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      setIsOpen(false); // close mobile menu after click
     }
   };
 
   return (
     <Nav>
       <Logo>
-        AI<span>Gen</span>
+        Gen<span>Invoice</span>
       </Logo>
 
       {/* Desktop Menu */}
       <Menu>
+                <MenuItem onClick={() => handleScroll("about")}>About</MenuItem>
         <MenuItem onClick={() => handleScroll("features")}>Features</MenuItem>
-        <MenuItem onClick={() => handleScroll("about")}>Gallery</MenuItem>
-        <MenuItem onClick={() => handleScroll("contact")}>FAQS</MenuItem>
-        <Button onClick={() => handleScroll("generator")}>Try Now</Button>
+        <MenuItem onClick={() => handleScroll("faqs")}>FAQs</MenuItem>
+        <Button onClick={() => handleScroll("/")}>Try Now</Button>
       </Menu>
 
       {/* Mobile Icon */}
@@ -34,16 +35,17 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <MobileMenu isOpen={isOpen}>
+                <MenuItem onClick={() => handleScroll("about")}>About</MenuItem>
         <MenuItem onClick={() => handleScroll("features")}>Features</MenuItem>
-        <MenuItem onClick={() => handleScroll("about")}>Gallery</MenuItem>
-        <MenuItem onClick={() => handleScroll("contact")}>FAQS</MenuItem>
-        <Button onClick={() => handleScroll("generator")}>Try Now</Button>
+        <MenuItem onClick={() => handleScroll("faqs")}>FAQs</MenuItem>
+        <Button onClick={() => handleScroll("/")}>Try Now</Button>
       </MobileMenu>
     </Nav>
   );
 };
 
 export default Navbar;
+
 
 // ---------------- Styled Components ----------------
 

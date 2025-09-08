@@ -1,48 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Gallery = () => {
-  const imagesRow1 = [
-    "https://picsum.photos/600/400?random=1",
-    "https://picsum.photos/600/400?random=2",
-    "https://picsum.photos/600/400?random=3",
-    "https://picsum.photos/600/400?random=4",
-    "https://picsum.photos/600/400?random=5",
-  ];
+  const [invoices, setInvoices] = useState([]);
 
-  const imagesRow2 = [
-    "https://picsum.photos/600/400?random=6",
-    "https://picsum.photos/600/400?random=7",
-    "https://picsum.photos/600/400?random=8",
-    "https://picsum.photos/600/400?random=9",
-    "https://picsum.photos/600/400?random=10",
-  ];
+  // Function to fetch invoices from localStorage
+  const fetchInvoices = () => {
+    const saved = JSON.parse(localStorage.getItem("invoices")) || [];
+    setInvoices(saved);
+  };
+
+  // Load invoices initially
+  useEffect(() => {
+    fetchInvoices();
+
+    // Listen for changes to localStorage (when new invoice is added/deleted)
+    const handleStorageChange = () => {
+      fetchInvoices();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   return (
     <Wrapper>
       <Content>
-        <Title>AI Generated Images</Title>
+        <Title>Invoice Gallery</Title>
         <Description>
-          Scroll through stunning AI artworks in our gallery.
+          Scroll through all the invoices you’ve generated.
         </Description>
 
-        {/* First Slider */}
-        <Slider>
-          {imagesRow1.map((src, index) => (
-            <Slide key={index}>
-              <Image src={src} alt={`Artwork ${index + 1}`} />
-            </Slide>
-          ))}
-        </Slider>
-
-        {/* Second Slider */}
-        <Slider>
-          {imagesRow2.map((src, index) => (
-            <Slide key={index}>
-              <Image src={src} alt={`Artwork ${index + 6}`} />
-            </Slide>
-          ))}
-        </Slider>
+        {invoices.length > 0 ? (
+          <Slider>
+            {invoices.map((inv, index) => (
+              <Slide key={inv.id || index}>
+                <Card>
+                  <h3>{inv.client}</h3>
+                  <p>
+                    <strong>Service:</strong> {inv.service}
+                  </p>
+                  <p>
+                    <strong>Amount:</strong> ${inv.amount}
+                  </p>
+                  <p>
+                    <strong>Date:</strong> {inv.date}
+                  </p>
+                </Card>
+              </Slide>
+            ))}
+          </Slider>
+        ) : (
+          <EmptyText>No invoices yet. Create one on the Home page!</EmptyText>
+        )}
       </Content>
     </Wrapper>
   );
@@ -51,18 +63,27 @@ const Gallery = () => {
 export default Gallery;
 
 // ---------------- Styled Components ----------------
+// ---------------- Styled Components ----------------
 const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
- background: radial-gradient(circle at top left, #0d1b2a, #000);
-   padding: 3rem 2rem;
+  align-items: flex-start;
+  background: radial-gradient(circle at top left, #0d1b2a, #000);
+  padding: 3rem 2rem;
   color: white;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem;
+  }
 `;
 
 const Content = styled.div`
-  max-width: 1300px;
+  max-width: 1200px;
   width: 100%;
   text-align: center;
 `;
@@ -70,15 +91,34 @@ const Content = styled.div`
 const Title = styled.h1`
   font-size: 2.8rem;
   margin-bottom: 1rem;
-  background: white;
+  background: linear-gradient(135deg, #61dafb, #21a1f1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media (max-width: 768px) {
+    font-size: 2.3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const Description = styled.p`
   font-size: 1.2rem;
   margin-bottom: 2.5rem;
   color: #d1d1d1;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Slider = styled.div`
@@ -90,26 +130,87 @@ const Slider = styled.div`
   margin-bottom: 2rem;
 
   &::-webkit-scrollbar {
-    display: none;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(97, 218, 251, 0.6);
+    border-radius: 8px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 15px;
   }
 `;
 
 const Slide = styled.div`
   flex: 0 0 auto;
   scroll-snap-align: start;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
 
-  &:hover {
-    transform: scale(1.05);
+  @media (max-width: 768px) {
+    flex: 0 0 250px;
+  }
+
+  @media (max-width: 480px) {
+    flex: 0 0 200px;
   }
 `;
 
-const Image = styled.img`
-  width: 350px;
-  height: 250px;
-  object-fit: cover;
+const Card = styled.div`
+  width: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
   border-radius: 16px;
-  display: block;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(97, 218, 251, 0.5);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: #61dafb;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #d1d1d1;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    width: 250px;
+    padding: 1.3rem;
+    h3 {
+      font-size: 1.2rem;
+    }
+    p {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 200px;
+    padding: 1rem;
+    h3 {
+      font-size: 1.1rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+  }
+`;
+
+const EmptyText = styled.p`
+  font-size: 1rem;
+  color: #aaa;
+  margin-top: 1rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;

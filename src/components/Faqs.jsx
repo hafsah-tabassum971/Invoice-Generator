@@ -7,24 +7,24 @@ const Faqs = () => {
 
   const faqs = [
     {
-      q: "What is this AI Image Generator?",
-      a: "It’s a powerful tool that allows you to create stunning visuals instantly using advanced AI models. Simply enter your idea, and our system transforms it into art."
+      q: "What is this Invoice Generator?",
+      a: "It’s a simple tool that helps freelancers, small businesses, and startups create professional invoices in minutes without needing Excel or Word."
     },
     {
-      q: "Do I need design skills?",
-      a: "Not at all! Our AI takes care of the design. You only need to describe your idea in plain words, and the system generates high-quality visuals."
+      q: "Do I need accounting knowledge?",
+      a: "Not at all! Just enter your client details, items, and prices — the system calculates totals, taxes, and generates the invoice for you."
     },
     {
-      q: "Can I upload my own prompts?",
-      a: "Yes! You can upload prompts, adjust styles, and customize outputs for full creative control."
+      q: "Can I download my invoices?",
+      a: "Yes! You can easily download invoices as PDF files to share with your clients or keep for your records."
     },
     {
-      q: "How fast are the results?",
-      a: "You’ll see results in just a few seconds thanks to our optimized AI performance."
+      q: "Is it customizable?",
+      a: "Absolutely. You can add your business information, change client information, and edit invoice fields as needed."
     },
     {
-      q: "Is it free to use?",
-      a: "We offer a free trial with limited generations. Premium plans unlock unlimited features and faster rendering."
+      q: "Do I need to create an account?",
+      a: "No account is required. You can generate invoices instantly. However, future updates may include an account option for saving past invoices."
     }
   ];
 
@@ -33,11 +33,11 @@ const Faqs = () => {
   };
 
   return (
-    <Wrapper>
-      <Content>
+    <Wrapper id="faqs">
+      <Content >
         <Title>❓ Frequently Asked Questions</Title>
         <Subtitle>
-          Have questions? We’ve got answers. Explore the most common questions below.
+          Got questions about our Invoice Generator? Here are the answers.
         </Subtitle>
         <FAQList>
           {faqs.map((faq, index) => (
@@ -58,15 +58,22 @@ const Faqs = () => {
 export default Faqs;
 
 // ---------------- Styled Components ----------------
-
 const Wrapper = styled.section`
   min-height: 100vh;
- background: radial-gradient(circle at top left, #0d1b2a, #000);
-   display: flex;
+  background: radial-gradient(circle at top left, #0d1b2a, #000);
+  display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 5rem 2rem;
   color: white;
+
+  @media (max-width: 768px) {
+    padding: 4rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 3rem 1rem;
+  }
 `;
 
 const Content = styled.div`
@@ -78,9 +85,17 @@ const Title = styled.h1`
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 1rem;
-  background: white;
+  background-color: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media (max-width: 768px) {
+    font-size: 2.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const Subtitle = styled.p`
@@ -88,6 +103,17 @@ const Subtitle = styled.p`
   color: #d1d1d1;
   margin-bottom: 3rem;
   font-size: 1.1rem;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const FAQList = styled.div`
@@ -99,14 +125,18 @@ const FAQList = styled.div`
 const FAQItem = styled.div`
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(97, 218, 251, 0.3);
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  padding: 1.2rem 1.8rem;
   transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(97, 218, 251, 0.2);
+  box-shadow: 0 0 15px rgba(97, 218, 251, 0.15);
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 0 20px rgba(97, 218, 251, 0.4);
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 1.2rem;
   }
 `;
 
@@ -118,6 +148,19 @@ const Question = styled.div`
   justify-content: space-between;
   align-items: center;
   color: #61dafb;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #21a1f1;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const Answer = styled.p`
@@ -125,5 +168,18 @@ const Answer = styled.p`
   color: #d6d6d6;
   font-size: 1rem;
   line-height: 1.6;
-`;
+  animation: fadeIn 0.3s ease;
 
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
+`;

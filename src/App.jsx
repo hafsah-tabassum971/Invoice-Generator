@@ -12,7 +12,6 @@ function App() {
     <>
       <Navbar />
       <Home />
-      <Gallery />
       <WhyBest />
       <Features />
       <Faqs />
